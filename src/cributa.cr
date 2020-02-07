@@ -1,4 +1,5 @@
 require "./cributa/row"
+require "./cributa/table"
 
 module Cributa
   VERSION = "0.1.0"
