@@ -10,13 +10,21 @@ module Cributa
     end
 
     def parse_rows
-      parsed_table = XML.parse_html(html_table)
-      tr_nodes = parsed_table.xpath_nodes("//table/tr")
+      tr_nodes = parse_table.xpath_nodes("/html/body/table/tr")
+
+      puts "HERE"
+      puts parse_table.class
+      puts tr_nodes
+      puts "THERE"
 
       rows = tr_nodes.map do |tr_node|
         columns = tr_node.xpath_nodes("td").map &.text
         Cributa::Row.new(columns)
       end
+    end
+
+    def parse_table
+      @parse_table ||= XML.parse_html(load_and_prepare_html)
     end
 
     private def load_and_prepare_html

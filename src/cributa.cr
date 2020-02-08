@@ -1,3 +1,4 @@
+require "./cributa/estv_page"
 require "./cributa/row"
 require "./cributa/table"
 
@@ -7,5 +8,4 @@ module Cributa
   def self.load
     Cributa::Loader.call
   end
-  # TODO: Put your code here
 end
