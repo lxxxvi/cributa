@@ -3,21 +3,17 @@ require "xml"
 
 module Cributa
   class EstvPage
-    URL = "http://www.estv2.admin.ch/steuerfuss/my_select_alle.php"
+    URL       = "http://www.estv2.admin.ch/steuerfuss/my_select_alle.php"
+    SKIP_ROWS = 2
 
     def to_cributa_table
       Cributa::Table.new(parse_rows)
     end
 
     def parse_rows
-      tr_nodes = parse_table.xpath_nodes("/html/body/table/tr")
+      tr_nodes = parse_table.xpath_nodes("/html/body/table/tbody/tr").to_a
 
-      puts "HERE"
-      puts parse_table.class
-      puts tr_nodes
-      puts "THERE"
-
-      rows = tr_nodes.map do |tr_node|
+      tr_nodes[SKIP_ROWS..-1].map do |tr_node|
         columns = tr_node.xpath_nodes("td").map &.text
         Cributa::Row.new(columns)
       end

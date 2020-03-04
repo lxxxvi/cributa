@@ -19,13 +19,12 @@ def stub_estv
 end
 
 describe Cributa do
-  it "fetches the page" do
+  it "load table, fetche the page" do
     stub_estv
-    page = Cributa::EstvPage.new
-    cributa_table = page.to_cributa_table
+    cributa_table = Cributa.load
 
     cributa_table.class.should eq(Cributa::Table)
-    cributa_table.rows.size.should eq(222)
+    cributa_table.rows.size.should eq(128)
   end
 
   it "creates a table" do
